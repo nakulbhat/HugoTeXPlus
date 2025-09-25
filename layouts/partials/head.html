@@ -1,9 +1,13 @@
 <head>
 <meta charset="utf-8" />
-{{ if .Title }}
-  <title>{{ .Title }} - {{ .Site.Title }}</title>
+{{ if .IsHome }}
+        <title>{{ .Site.Params.HomeTitle }} - {{ .Site.Title }}</title>
 {{ else }}
-  <title>{{ .Site.Title }}</title>
+  {{ if .Title }}
+    <title>{{ .Title }} - {{ .Site.Title }}</title>
+  {{ else }}
+    <title>{{ .Site.Title }}</title>
+  {{ end }}
 {{ end }}
 {{ with .Site.Params.description }}
   <meta name="description" content="{{ . }}" />
@@ -22,7 +26,9 @@
 {{ range .AlternativeOutputFormats -}}
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
 {{ end -}}
+
 <link rel="stylesheet" href="{{ .Site.BaseURL }}css/latex.css" />
 <link rel="stylesheet" href="{{ .Site.BaseURL }}css/main.css" />
 <script id="MathJax-script" async src="{{ .Site.BaseURL }}js/tex-mml-chtml.js"></script>
+
 </head>
