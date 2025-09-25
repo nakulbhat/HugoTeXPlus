@@ -25,3 +25,10 @@ footer .theme-by {
   float: right;
   display: block;
 }
+
+@media screen and (min-width: 768px) {
+        body{
+                font-size: 20px;
+                max-width: 70ch;
+        }
+}
