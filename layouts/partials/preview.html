@@ -14,4 +14,14 @@
                 <a href="{{ .Permalink }}" class="post-read-more">Read More</a>
                 {{ end }}
         </div>
+
+        {{- if .Params.tags -}}
+        <p>Tags: &nbsp;
+                {{- range .Params.tags -}}
+                {{- $tagSlug := . | urlize -}}
+                <a href="{{ "tags/" | relLangURL }}{{ $tagSlug }}">{{ . }}</a> &nbsp;
+                {{- end -}}
+        </p>
+        {{- end -}}
+
 </article>
