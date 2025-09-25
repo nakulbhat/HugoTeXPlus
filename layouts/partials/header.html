@@ -26,7 +26,6 @@
                                         {{ with readFile "content/socials.md" }}
                                         {{ . | safeHTML }}
                                         {{ end }}
-                                        {{ if .Site.Params.Author.abstract }}
                                         {{ with readFile "content/abstract.md" }}
                                         <div class="abstract">
                                                 <h5>Abstract</h5>
@@ -34,7 +33,6 @@
                                                         {{ . | markdownify }}
                                                 </p>
                                         </div>
-                                        {{ end }}
                                         {{ end }}
                                         {{ end }}
                                         {{ end }}
