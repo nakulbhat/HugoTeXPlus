@@ -1,0 +1,22 @@
+{{ define "main" }}
+<div class="container" role="main">
+    <article class="article" class="tag-list-page">
+        {{/* The main title for the page, e.g., "All Tags" */}}
+
+        <div class="blog-tags-list">
+        {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+            {{ $cnt := $taxonomy.Count }}
+            {{/* Check if a page exists for this tag before linking */}}
+            {{ with $.Site.GetPage (printf "/tags/%s" $name) }}
+                {{/* Container for the tag and its count, similar to a link block */}}
+                <div class="tagbutton">
+                    <a href="{{ .RelPermalink }}" title="All pages with tag '{{$name}}'">
+                        {{ $name }}
+                    </a> ({{ $cnt }})
+                </div>
+            {{end}}
+        {{end}}
+        </div>
+    </article>
+</div>
+{{ end }}
