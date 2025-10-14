@@ -2,11 +2,11 @@
 <html lang="{{ .Site.LanguageCode }}">
   {{- partial "head.html" . -}}
   {{- if site.Params.darkmode -}}
-  <body class="latex-dark text-justify">
+  <body class="text-justify">
   {{- else if site.Params.lightmode -}}
   <body class="text-justify">
   {{- else -}}
-  <body class="latex-dark-auto text-justify">
+  <body class="text-justify">
   {{- end -}}
   
     <div class="page-wrapper">
