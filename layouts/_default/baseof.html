@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
-    {{- partial "head.html" . -}}
-    {{- if site.Params.darkmode -}}
-    <body class="latex-dark text-justify">
-    {{- else if site.Params.lightmode -}}
-    <body class="text-justify">
-    {{- else -}}
-    <body class="latex-dark-auto text-justify">
-    {{- end -}}
-        {{- partial "header.html" . -}}
-        <div id="content">
+  {{- partial "head.html" . -}}
+  {{- if site.Params.darkmode -}}
+  <body class="latex-dark text-justify">
+  {{- else if site.Params.lightmode -}}
+  <body class="text-justify">
+  {{- else -}}
+  <body class="latex-dark-auto text-justify">
+  {{- end -}}
+  
+    <div class="page-wrapper">
+      {{- partial "header.html" . -}}
+      
+      <main id="content">
         {{- block "main" . }}{{- end }}
-        </div>
-        {{- partial "footer.html" . -}}
-    </body>
+      </main>
+      
+      {{- partial "footer.html" . -}}
+    </div>
+  
+  </body>
 </html>
