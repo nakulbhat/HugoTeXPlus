@@ -88,7 +88,7 @@ footer .theme-by {
 }
 
 main {
-  flex: 1; /* pushes footer down when page is short */
+  flex: 1;
 }
 
 html, body {
@@ -100,4 +100,10 @@ nav {
         align-items: center;
         justify-content: space-between;
         margin-bottom: 1em;
+}
+
+.hero {
+  text-align: center;     
+  font-size: 2em;        
+  margin: 0 auto;       
 }
