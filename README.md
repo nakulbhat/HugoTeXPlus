@@ -1,4 +1,24 @@
-# HugoTeX
+# HugoTeX-Plus
+
+This is a fork of the original HugoTeX theme by [kaisugi](https://github.com/kaisugi/).  
+I've made several improvements and refinements to the original, though the theme isn't yet modular enough for general use.  
+If you're interested in using it, feel free to reach out — I can help you get started.
+
+**[See it in action](https://nakulbhat.github.io/)**
+
+## Notable improvements
+- Low-quality image previews (LQIP)
+- More modular index and home pages (requires some basic HTML)
+- Faster load times with reduced bloat
+- Cleaner, simpler layout: more in line with the LaTeX aesthetic (opinionated changes)
+
+## Planned features
+- KaTeX integration
+- Other features which I feel like
+
+---
+
+# HugoTeX (Original README follows)
 
 A hugo theme which looks like a LaTeX document.
 
