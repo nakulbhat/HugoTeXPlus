@@ -1,7 +1,5 @@
 <header>
-  {{ with .Site.GetPage "navbar/_index.md" }}
-    {{ .Content | safeHTML }}
-  {{ end }}
+        {{ partial "nav.html" . }}
 
   <div class="intro-header">
     <div class="container">

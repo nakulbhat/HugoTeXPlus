@@ -1,14 +1,40 @@
-<nav class="main-nav">
-  <a href="/">
-    <svg><!-- complicated SVG here --></svg>
-    Home
+<nav>
+  <a href="{{ "/" | relURL }}">
+  {{ $svg := readFile "static/logo.svg" }}
+  {{ $svg | safeHTML }}
   </a>
-  <a href="/about/">
-    <svg><!-- another SVG --></svg>
-    About
-  </a>
-  <a href="/blog/">
-    <svg><!-- another SVG --></svg>
-    Blog
-  </a>
+  <div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="nav-links" id="nav-links">
+      {{ range site.Data.navbar.links }}
+        <a href="{{ .url }}">{{ .name }}</a>
+      {{ end }}
+    </div>
+    <button id='addClassBtn'><i class="fa-solid fa-moon"></i></button>
+  </div>
 </nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById('addClassBtn');
+    const theme = localStorage.getItem('theme');
+
+    if (theme === 'dark') document.body.classList.add('latex-dark');
+
+    button.addEventListener('click', () => {
+        document.body.classList.toggle('latex-dark');
+        localStorage.setItem(
+          'theme',
+          document.body.classList.contains('latex-dark') ? 'dark' : 'light'
+        );
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+});
+</script>
