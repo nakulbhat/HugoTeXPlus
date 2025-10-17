@@ -4,27 +4,12 @@
 
 <div class="social-links-container">
   {{ $links := .Site.Data.home.social_links }}
-  {{ $half := div (len $links | int) 2 }}
 
-  <!-- First row -->
   <div class="social-links">
-    {{ range $i, $link := $links }}
-      {{ if lt $i $half }}
-        <a href="{{ $link.url }}" aria-label="{{ $link.name }}" title="{{ $link.name }}">
-          <i class="{{ $link.icon }}"></i>
-        </a>
-      {{ end }}
-    {{ end }}
-  </div>
-
-  <!-- Second row -->
-  <div class="social-links">
-    {{ range $i, $link := $links }}
-      {{ if ge $i $half }}
-        <a href="{{ $link.url }}" aria-label="{{ $link.name }}" title="{{ $link.name }}">
-          <i class="{{ $link.icon }}"></i>
-        </a>
-      {{ end }}
+    {{ range $link := $links }}
+      <a href="{{ $link.url }}" aria-label="{{ $link.name }}" title="{{ $link.name }}">
+        <i class="{{ $link.icon }}"></i>
+      </a>
     {{ end }}
   </div>
 </div>
