@@ -1,5 +1,37 @@
 {{ define "main" }}
 
-{{ .Content }}
+<p class="hero"><code class="language-bash">{{ .Site.Data.home.hero.title }}</code></p>
+
+<div class="social-links-container">
+  {{ $links := .Site.Data.home.social_links }}
+  {{ $half := div (len $links | int) 2 }}
+
+  <!-- First row -->
+  <div class="social-links">
+    {{ range $i, $link := $links }}
+      {{ if lt $i $half }}
+        <a href="{{ $link.url }}" aria-label="{{ $link.name }}" title="{{ $link.name }}">
+          <i class="{{ $link.icon }}"></i>
+        </a>
+      {{ end }}
+    {{ end }}
+  </div>
+
+  <!-- Second row -->
+  <div class="social-links">
+    {{ range $i, $link := $links }}
+      {{ if ge $i $half }}
+        <a href="{{ $link.url }}" aria-label="{{ $link.name }}" title="{{ $link.name }}">
+          <i class="{{ $link.icon }}"></i>
+        </a>
+      {{ end }}
+    {{ end }}
+  </div>
+</div>
+
+<div class="abstract">
+  <h5>Abstract</h5>
+  <p>{{ .Site.Data.home.abstract.text | safeHTML }}</p>
+</div>
 
 {{ end }}
