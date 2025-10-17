@@ -1,19 +1,21 @@
 <header>
-        {{ partial "nav.html" . }}
+  {{ partial "nav.html" . }}
 
   <div class="intro-header">
     <div class="container">
-      <div class="{{ .Type }}-heading">
-        {{ with .Title }}
-          <h1>
-            {{ if eq $.Type "list" }}
-              {{ if $.Data.Singular }}#{{ end }}{{ . }}
-            {{ else }}
-              {{ . }}
-            {{ end }}
-          </h1>
-        {{ end }}
-      </div>
+      {{ if not .IsHome }}
+        <div class="heading {{ .Type }}-heading">
+          {{ with .Title }}
+            <h1>
+              {{ if eq $.Type "list" }}
+                {{ if $.Data.Singular }}#{{ end }}{{ . }}
+              {{ else }}
+                {{ . }}
+              {{ end }}
+            </h1>
+          {{ end }}
+        </div>
+      {{ end }}
     </div>
   </div>
 </header>
