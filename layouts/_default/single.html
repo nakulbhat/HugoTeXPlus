@@ -16,15 +16,15 @@
                 {{ end }}
                 {{ $pages := where .Site.RegularPages "Type" "posts" }}
                 {{ $pages := where .Site.RegularPages "Type" "posts" }}
-                <nav class="post-navigation">
-                        {{ with $pages.Prev . }}
-                        <a href="{{ .Permalink }}">← Previous Post</a>
-                        {{ end }}
-                        <a href="{{ .Site.BaseURL }}">All Posts</a>
-                        {{ with $pages.Next . }}
-                        <a href="{{ .Permalink }}">Next Post →</a>
-                        {{ end }}
-                </nav>
+<nav class="post-navigation">
+    {{ with $pages.Prev . }}
+    <a href="{{ .Permalink }}">← Prev</a>
+    {{ end }}
+    <a href="{{ .Site.BaseURL }}">All Posts</a>
+    {{ with $pages.Next . }}
+    <a href="{{ .Permalink }}">Next →</a>
+    {{ end }}
+</nav>
         </article>
         {{ if and (gt .WordCount 400) (.Param "backtotop") }}
         {{ partial "backtotop.html" . }}
