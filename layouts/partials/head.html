@@ -1,43 +1,69 @@
 <head>
         <meta charset="utf-8" />
-        {{ if .IsHome }}
-        <title>{{ .Site.Title }}</title>
-        {{ else }}
-        {{ if .Title }}
-        <title>{{ .Title }} - {{ .Site.Title }}</title>
-        {{ else }}
-        <title>{{ .Site.Title }}</title>
-        {{ end }}
-        {{ end }}
-        {{ with .Site.Params.description }}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- Title -->
+        <title>
+                {{ if .IsHome }}
+                {{ .Site.Title }}
+                {{ else if .Title }}
+                {{ .Title }} | {{ .Site.Title }}
+                {{ else }}
+                {{ .Site.Title }}
+                {{ end }}
+        </title>
+
+        <!-- Description -->
+        {{ with .Description | default .Site.Params.description }}
         <meta name="description" content="{{ . }}" />
         {{ end }}
-        {{- with .Site.Params.Author.Name }}
-        <meta name="author" content="{{ . }}"/>
-        {{- end }}
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        {{ if site.Params.twittercard }}
-        {{ template "_internal/twitter_cards.html" . }}
-        {{- end }}
-        {{ if site.Params.opengraph }}
-        {{ template "_internal/opengraph.html" . }}
-        {{- end }}
-        {{ range .AlternativeOutputFormats -}}
-        {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
-        {{ end -}}
 
-        <link rel="stylesheet" href="{{ .Site.BaseURL }}css/latex.css" />
-        <link rel="stylesheet" href="{{ .Site.BaseURL }}css/main.css" />
-        {{ partial "lazyimg-setup" }}
+        <!-- Author -->
+        {{ with .Site.Params.author }}
+        <meta name="author" content="{{ . }}" />
+        {{ end }}
+
+        <!-- Canonical URL -->
+        <link rel="canonical" href="{{ .Permalink }}" />
+
+        <!-- SEO / Social Meta -->
+        {{ if or .Site.Params.opengraph .Site.Params.twittercard }}
+        {{ if .Site.Params.opengraph }}
+        {{ template "_internal/opengraph.html" . }}
+        {{ end }}
+        {{ if .Site.Params.twittercard }}
+        {{ template "_internal/twitter_cards.html" . }}
+        {{ end }}
+        {{ end }}
+
+        <!-- Alternate output formats (RSS, JSON, etc.) -->
+        {{ range .AlternativeOutputFormats }}
+        <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ $.Site.Title }}" />
+        {{ end }}
+
+        {{ $cssFiles := slice
+        (resources.Get "css/latex.css")
+        (resources.Get "css/main.css")
+        (resources.Get "css/syntax-hl-light.css")
+        (resources.Get "css/syntax-hl-dark.css")
+        }}
+
+        {{ $styles := $cssFiles | resources.Concat "css/bundle.css" | resources.Minify | resources.Fingerprint }}
+        <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}" />
+
+        <!-- External Icons -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <meta name="apple-mobile-web-app-title" content="{{ .Site.Title }}" />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="stylesheet" href="{{ .Site.BaseURL }}css/syntax-hl-light.css">
-        <link rel="stylesheet" href="{{ .Site.BaseURL }}css/syntax-hl-dark.css">
+
+        <!-- Favicons -->
+        <link rel="icon" type="image/png" sizes="96x96" href="{{ "favicon-96x96.png" | absURL }}">
+        <link rel="icon" type="image/svg+xml" href="{{ "favicon.svg" | absURL }}">
+        <link rel="shortcut icon" href="{{ "favicon.ico" | absURL }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ "apple-touch-icon.png" | absURL }}">
+        <meta name="apple-mobile-web-app-title" content="{{ .Site.Title }}">
+        <link rel="manifest" href="{{ "site.webmanifest" | absURL }}">
+
+        <!-- Optional partials -->
+        {{ partial "lazyimg-setup" . }}
 </head>
