@@ -1,4 +1,7 @@
-/* bigger font on large screen */
+details p,
+details ul {
+  margin-top: 0;
+}
 @media screen and (min-width: 768px) {
         body{
                 font-size: 20px;
