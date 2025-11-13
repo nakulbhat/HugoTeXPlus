@@ -16,7 +16,7 @@
 
 <div class="abstract">
   <h4>Abstract</h4>
-  <p>{{ .Site.Data.home.abstract.text | safeHTML }}</p>
 </div>
+  <p>{{ .Site.Data.home.abstract.text | markdownify }}</p>
 
 {{ end }}
